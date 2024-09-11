@@ -167,7 +167,7 @@ function preloadFiles() {
                     // video.style.maxWidth = '100%';
                     // video.style.maxHeight = '100%';
                     // video.style.width = "100%";
-                    video.style.height = "100%";
+                    // video.style.height = "100%";
                     video.preload = "auto"; // Load video content
                     ContentElement.push(video);
 
@@ -235,7 +235,9 @@ function startSlideshow() {
 
 async function showCurrentFile() {
     const slideshowContainer = document.getElementById('slideshowContainer');
+    const login_container = document.getElementById('login_container');
     slideshowContainer.innerHTML = ''; // Clear the current display
+    login_container.style.display = 'none'; // Clear the current display
     // console.log(ContentElement)
     console.log(currentIndex)
     const content = ContentElement[currentIndex];
@@ -289,6 +291,7 @@ function Login(e) {
     // Get input values
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
+    const errorText = document.getElementById("error");
 
     // Basic validation
     if (username === "" || password === "") {
@@ -309,13 +312,19 @@ function Login(e) {
     }).then(response => response.json())
       .then((data) => {
         // openDB(data.key);
+        if(data.status_code == 401){
+            
+        errorText.innerHTML = data.status_text
+        }
         key = data.ws_secret_key;
-        console.log(key)
+        console.log(data.status_code)
         document.cookie = `sockect_key=${key}`
         // window.location = 'index.html'
 
         openDB()
-      }).catch((error)=>console.log(error))
+      }).catch((error)=>{
+        errorText.value = error
+      })
 
 }
 

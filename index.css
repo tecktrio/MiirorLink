@@ -1,0 +1,47 @@
+#container{
+    border: solid black 2px;
+    padding: 20px;
+    width: 50%;
+    border-radius: 10px;
+}
+.inputbox{
+    padding: 10px;
+    width: 50%;
+    margin: 5px;
+}
+.label{
+    margin: 5px;;
+}
+.login_button{
+    padding: 10px 20px;
+    background-color: rgb(68, 141, 214);
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    border: solid white;
+    margin: 5px;
+}
+
+#login_container{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+}
+body{
+    height: 100%;
+}
+
+
+/* Styles for mobile devices */
+@media only screen and (max-width: 600px) {
+   
+    
+    #container {
+        border: none;
+        width: 90%;
+    }
+    .inputbox{
+        width: 90%;
+    }
+}
