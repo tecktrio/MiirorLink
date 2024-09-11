@@ -2,6 +2,7 @@ let db;
 let files = [];
 let currentIndex = 0;
 let ContentElement = [];
+let key = "";
 
 function openDB() {
     const request = indexedDB.open("fileDatabase", 1);
@@ -15,7 +16,7 @@ function openDB() {
         console.log("Database opened successfully");
         // Get the Contents from websocket
 
-        const socket = new WebSocket('ws://localhost:8000/ws/mirror/?key=mirror1admin');
+        const socket = new WebSocket(`ws://localhost:8000/ws/mirror/?key=${key}`);
 
         // Listen for the connection to be established
         socket.onopen = function() {
@@ -232,7 +233,7 @@ function startSlideshow() {
 
 
 
-function showCurrentFile() {
+async function showCurrentFile() {
     const slideshowContainer = document.getElementById('slideshowContainer');
     slideshowContainer.innerHTML = ''; // Clear the current display
     // console.log(ContentElement)
@@ -272,15 +273,51 @@ function showCurrentFile() {
     if(ContentElement.length === currentIndex){
         console.log('reset')
         currentIndex = 0;
+        await loadFiles()
     }
 
 
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-    openDB();
-});
+// document.addEventListener('DOMContentLoaded', (event) => {
+//     openDB();
+// });
 
+function Login(e) {
+    e.preventDefault();
+
+    // Get input values
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // Basic validation
+    if (username === "" || password === "") {
+        alert("Both fields are required.");
+        return;
+    }
+
+    // Handle login logic (e.g., send credentials to server)
+    console.log("Logging in with:", { username, password });
+
+    // You can use fetch or another method to send this data to your server
+    fetch('http://localhost:8000/MirrorLogin', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, password })
+    }).then(response => response.json())
+      .then((data) => {
+        // openDB(data.key);
+        key = data.ws_secret_key;
+        console.log(key)
+        document.cookie = `sockect_key=${key}`
+        // window.location = 'index.html'
+
+        openDB()
+      }).catch((error)=>console.log(error))
+
+}
 
 window.onbeforeunload = function() {
     // Close the database first (optional but recommended)
