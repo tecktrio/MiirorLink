@@ -303,7 +303,7 @@ function Login(e) {
     console.log("Logging in with:", { username, password });
 
     // You can use fetch or another method to send this data to your server
-    fetch('http://localhost:8000/MirrorLogin', {
+    fetch('http://mirrorlinkserver.developingkerala.com:8000/MirrorLogin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
