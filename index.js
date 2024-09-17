@@ -16,7 +16,7 @@ function openDB() {
         console.log("Database opened successfully");
         // Get the Contents from websocket
 
-        const socket = new WebSocket(`wss://35.154.117.214:8000/ws/mirror/?key=${key}`);
+        const socket = new WebSocket(`wss://35.154.117.214/ws/mirror/?key=${key}`);
 
         // Listen for the connection to be established
         socket.onopen = function() {
@@ -303,7 +303,7 @@ function Login(e) {
     console.log("Logging in with:", { username, password });
 
     // You can use fetch or another method to send this data to your server
-    fetch('https://mirrorlinkserver.developingkerala.com:8000/MirrorLogin', {
+    fetch('https://mirrorlinkserver.developingkerala.com/MirrorLogin', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
