@@ -16,7 +16,7 @@ function openDB() {
         console.log("Database opened successfully");
         // Get the Contents from websocket
 
-        const socket = new WebSocket(`wss://35.154.117.214/ws/mirror/?key=${key}`);
+        const socket = new WebSocket(`wss://mirrorlinkserver.developingkerala.com/ws/mirror/?key=${key}`);
 
         // Listen for the connection to be established
         socket.onopen = function() {
